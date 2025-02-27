@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/registration_from.css" rel="stylesheet" type="text/css">
+  <title>Sign in & Sign up Form</title>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Sign Up Form Section -->
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form id="signUp">
+          <h2 class="title">
+            <center>User - SignUp</center> Login Credentials
+          </h2>
+          <p id="alertMsg"></p>
+
+          <!-- Step 1: Personal Information -->
+          <div id="step1">
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Name" name="first_name" id="first_name" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" id="email_address" name="email_address" required />
+            </div>
+
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <select name="role" id="role" class="input-field-select" required>
+                <option value="" disabled selected>Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Candidate">Candidate</option>
+                <option value="Voter">Voter</option>
+              </select>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" id="password" name="password" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Confirm Password" id="cpassword" name="confirm_password" required />
+            </div>
+            <button type="button" id="nextStepBtn" class="btn">Next</button>
+          </div>
+
+          <!-- Step 2: Gender, Role, Password -->
+          <div id="step2" style="display: none;">
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Aadhar Number" name="Aadhar_Number" id="Aadhar_Number" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Date_Of_Birth" name="Date_Of_Birth" id="DOB" required />
+            </div>
+            <button type="button" id="prevStepBtn" class="btn">Previous</button>
+            <button type="button" id="nextStepBtn2" class="btn">Next</button>
+          </div>
+
+          <!-- Step 3: Department, Year, Mobile Number -->
+          <div id="step3" style="display: none;">
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <select name="gender" id="gender" class="input-field-select" required>
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Not-To-Say">Not-To-Say</option>
+              </select>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Department" name="Department" id="Department" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Year" name="Year" id="Year" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Mobile Number" name="Mobile_Number" id="Mobile_Number" required />
+            </div>
+            <button type="button" id="prevStepBtn2" class="btn">Previous</button>
+            <button type="submit" class="btn" value="Sign up">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Login Form Section -->
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>Already a member?</h3>
+          <p>If you have already signed up, please LOGIN.</p>
+          <a href="/login"><button class="btn transparent" id="login-btn">Login</button></a>
+        </div>
+        <img src="img/home_page.png" class="image" alt="home page image" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to go to the next step, validating inputs before progressing
+    function validateStep(step) {
+      const inputs = step.querySelectorAll('input[required], select[required]');
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.classList.add('error'); // Optionally add an error class to invalid fields
+          isValid = false;
+        } else {
+          input.classList.remove('error'); // Remove the error class if valid
+        }
+      });
+      return isValid;
+    }
+
+    // Step 1: Go to Step 2
+    document.getElementById('nextStepBtn').addEventListener('click', function () {
+      const step1 = document.getElementById('step1');
+      if (validateStep(step1)) {
+        document.getElementsByClassName('title')[0].innerHTML = "<center>User - SignUp</center> Basic Information";
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'block';
+      } else {
+        alert('Please fill in all the required fields in step 1.');
+      }
+    });
+
+    // Step 2: Go to Step 3
+    document.getElementById('nextStepBtn2').addEventListener('click', function () {
+      const step2 = document.getElementById('step2');
+      if (validateStep(step2)) {
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step3').style.display = 'block';
+      } else {
+        alert('Please fill in all the required fields in step 2.');
+      }
+    });
+
+    // Step 2: Go back to Step 1
+    document.getElementById('prevStepBtn').addEventListener('click', function () {
+      document.getElementById('step2').style.display = 'none';
+      document.getElementById('step1').style.display = 'block';
+    });
+
+    // Step 3: Go back to Step 2
+    document.getElementById('prevStepBtn2').addEventListener('click', function () {
+      document.getElementById('step3').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+    });
+
+    // Form validation and submit
+    document.getElementById('signUp').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent the form from submitting the traditional way
+      const step3 = document.getElementById('step3');
+      if (validateStep(step3)) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('cpassword').value;
+
+        // Check if password and confirm password match
+        if (password !== confirmPassword) {
+          document.getElementById('alertMsg').innerText = "Passwords do not match!";
+          return;
+        }
+      }
+
+      // Grab the values from the form
+      const firstName = document.getElementById('first_name').value.split(' ')[0]; // Split first and last name
+      const lastName = document.getElementById('first_name').value.split(' ')[1]; // Split first and last name
+      const email = document.getElementById('email_address').value;
+      const gender = document.getElementById('gender').value;
+      const role = document.getElementById('role').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('cpassword').value;
+      const mobile = document.getElementById('Mobile_Number').value;
+      const year = document.getElementById('Year').value;
+      const department = document.getElementById('Department').value;
+      const Aadhar = document.getElementById('Aadhar_Number').value;
+      const dob = document.getElementById('DOB').value;
+
+      // Send the form data using fetch
+      fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email_address: email,
+          gender: gender,
+          role: role,
+          password: password,
+          confirm_password: confirmPassword,
+          mobile_number: mobile,
+          year: year,
+          department: department,
+          aadhar_number: Aadhar,
+          dob: dob
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          if (data.success) {
+            alert(`${role} registered successfully`);
+            if (role == 'Admin') {
+              window.location.href = '/adlogin';
+            }  // Redirect to login page
+            else {
+              window.location.href = '/login';
+            }
+          } else {
+            alert('Registration failed: ' + data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred while processing your request');
+        });
+    });
+
+  </script>
+</body>
+
+</html>

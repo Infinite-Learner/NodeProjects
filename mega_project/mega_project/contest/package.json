@@ -1,0 +1,41 @@
+{
+  "name": "voteapp",
+  "version": "1.0.0",
+  "description": "Application to provide Voting Environment and secure by BlockChain",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server -c bs-config.js\" ",
+    "startdev": "nodemon bs-config.js"
+  },
+  "dependencies": {
+    "@truffle/contract": "^4.6.31",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "ganache-core": "^2.13.2",
+    "get-age": "^1.0.1",
+    "mysql": "^2.18.1",
+    "nodemailer": "latest",
+    "nvm": "^0.0.4",
+    "pet-shop": "file:",
+    "pkill": "^2.0.0",
+    "truffle": "^5.11.5",
+    "voteapp": "file:",
+    "web3": "^4.16.0",
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.0",
+    "nodemon": "^3.1.9"
+  }
+}
